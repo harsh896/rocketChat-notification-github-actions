@@ -5453,11 +5453,11 @@ function run() {
             const options = {
                 username: core.getInput("username"),
                 channel: core.getInput("channel"),
-                icon_emoji: core.getInput("icon_emoji"),
-                message: core.getInput("message")
+                icon_emoji: core.getInput("icon_emoji")
             };
             const commitFlag = core.getInput("commit") === "true";
             const token = core.getInput("token");
+            const message = core.getInput("message");
             if (mention && !utils_1.isValidCondition(mentionCondition)) {
                 mention = "";
                 mentionCondition = "";
@@ -5477,6 +5477,7 @@ function run() {
             const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, token);
             yield rocketchat.notify(url, options, payload);
             console.info("Sent message to Rocket.Chat");
+            console.log(message);
         }
         catch (err) {
             core.setFailed(err.message);
@@ -9406,7 +9407,7 @@ class Helper {
             {
                 short: false,
                 title: "message",
-                value: "hello"
+                value: "hello pluto"
             }
         ];
     }

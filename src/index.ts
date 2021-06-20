@@ -15,11 +15,11 @@ async function run() {
     const options: IncomingWebhookDefaultArguments = {
       username: core.getInput("username"),
       channel: core.getInput("channel"),
-      icon_emoji: core.getInput("icon_emoji"),
+      icon_emoji: core.getInput("icon_emoji")
     };
     const commitFlag: boolean = core.getInput("commit") === "true";
     const token: string = core.getInput("token");
-    const message: string = core.getInput('message');
+    const message: string = core.getInput("message");
 
     if (mention && !isValidCondition(mentionCondition)) {
       mention = "";
