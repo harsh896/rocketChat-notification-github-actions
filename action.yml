@@ -1,0 +1,11 @@
+name: 'Rocket Chat Notification'
+description: 'Sending Rocket Chat Notifications'
+author: 'Harsh'
+inputs:
+  host:
+    description: 'Name of the Host'
+    default: 'harsh'
+    
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
