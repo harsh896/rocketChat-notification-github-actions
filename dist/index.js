@@ -9351,7 +9351,7 @@ class Helper {
         return {
             color: "#2cbe4e",
             result: "Succeeded",
-            emoji: ":heavy_check_mark:"
+            emoji: ":white_check_mark:"
         };
     }
     get failure() {
@@ -9365,7 +9365,7 @@ class Helper {
         return {
             color: "#ffc107",
             result: "Cancelled",
-            emoji: ":x:"
+            emoji: ":exclamation:"
         };
     }
     get isPullRequest() {
