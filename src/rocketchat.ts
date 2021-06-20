@@ -1,5 +1,5 @@
 import * as github from "@actions/github";
-import Octokit from '@octokit/rest';
+import Octokit from "@octokit/rest";
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
@@ -12,7 +12,7 @@ const message: string = core.getInput("message");
 interface Accessory {
   color: string;
   result: string;
-  emoji: string
+  emoji: string;
 }
 
 class Helper {
@@ -22,7 +22,7 @@ class Helper {
     return {
       color: "#2cbe4e",
       result: "Succeeded",
-	  emoji: ":heavy_check_mark:"
+      emoji: ":heavy_check_mark:"
     };
   }
 
@@ -30,7 +30,7 @@ class Helper {
     return {
       color: "#cb2431",
       result: "Failed",
-	  emoji: ":x:"
+      emoji: ":x:"
     };
   }
 
@@ -38,7 +38,7 @@ class Helper {
     return {
       color: "#ffc107",
       result: "Cancelled",
-	  emoji: ":x:"
+      emoji: ":x:"
     };
   }
 
@@ -98,30 +98,30 @@ class Helper {
     return fields;
   }
 
-//   public async getCommitFields(token: string): Promise<any[]> {
-//   	const {owner, repo} = this.context.repo;
-//   	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
-//   	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-//   	const client: github.GitHub = new github.GitHub(token);
-//   	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-//   	const authorName: string = commit.author.login;
-//   	const authorUrl: string = commit.author.html_url;
-//   	const commitMsg: string = commit.commit.message;
-//   	const commitUrl: string = commit.html_url;
-//   	const fields = [
-//   		{
-//   			short: true,
-//   			title: 'commit',
-//   			value: `[${commitMsg}](${commitUrl})`
-//   		},
-//   		{
-//   			short: true,
-//   			title: 'author',
-//   			value: `[${authorName}](${authorUrl})`
-//   		}
-//   	];
-//   	return fields;
-//   }
+  //   public async getCommitFields(token: string): Promise<any[]> {
+  //   	const {owner, repo} = this.context.repo;
+  //   	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
+  //   	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
+  //   	const client: github.GitHub = new github.GitHub(token);
+  //   	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
+  //   	const authorName: string = commit.author.login;
+  //   	const authorUrl: string = commit.author.html_url;
+  //   	const commitMsg: string = commit.commit.message;
+  //   	const commitUrl: string = commit.html_url;
+  //   	const fields = [
+  //   		{
+  //   			short: true,
+  //   			title: 'commit',
+  //   			value: `[${commitMsg}](${commitUrl})`
+  //   		},
+  //   		{
+  //   			short: true,
+  //   			title: 'author',
+  //   			value: `[${authorName}](${authorUrl})`
+  //   		}
+  //   	];
+  //   	return fields;
+  //   }
 }
 
 export class RocketChat {
