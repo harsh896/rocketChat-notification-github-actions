@@ -9361,7 +9361,7 @@ class Helper {
         return {
             color: "#2cbe4e",
             result: "Succeeded",
-            emoji: ":white_check_mark:"
+            emoji: ":heavy_check_mark:"
         };
     }
     get failure() {
@@ -9441,7 +9441,8 @@ class RocketChat {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
-            const tmpText = `${notificationType.emoji} ${jobName} triggered by ${helper.userNameWhoTriggeredTheWorkflowFlag()} -> ${notificationType.result}`;
+            const userNameTriggered = yield helper.userNameWhoTriggeredTheWorkflowFlag();
+            const tmpText = `${notificationType.emoji} ${jobName} triggered by ${userNameTriggered} -> ${notificationType.result}`;
             const text = mention && this.isMention(mentionCondition, status)
                 ? `@${mention} ${tmpText}`
                 : tmpText;

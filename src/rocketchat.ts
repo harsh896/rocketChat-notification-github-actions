@@ -33,7 +33,7 @@ class Helper {
     return {
       color: "#2cbe4e",
       result: "Succeeded",
-      emoji: ":white_check_mark:"
+      emoji: ":heavy_check_mark:"
     };
   }
 
@@ -151,9 +151,10 @@ export class RocketChat {
   ): Promise<any> {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
+	const userNameTriggered = await helper.userNameWhoTriggeredTheWorkflowFlag()
     const tmpText: string = `${
       notificationType.emoji
-    } ${jobName} triggered by ${helper.userNameWhoTriggeredTheWorkflowFlag()} -> ${
+    } ${jobName} triggered by ${userNameTriggered} -> ${
       notificationType.result
     }`;
     const text =
