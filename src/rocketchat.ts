@@ -82,16 +82,16 @@ class Helper {
       }
     ];
   }
-  
+
   public async getMessageFeilds(): Promise<any[]> {
-	  const fields = [
-		  {
-			short: true,
-			title: 'message',
-			value: 'Hello'
-		  }
-	  ];
-	  return fields;
+    const fields = [
+      {
+        short: true,
+        title: "message",
+        value: onmessage
+      }
+    ];
+    return fields;
   }
   // public async getCommitFields(token: string): Promise<any[]> {
   // 	const {owner, repo} = this.context.repo;
@@ -131,7 +131,7 @@ export class RocketChat {
     mentionCondition: string,
     commitFlag: boolean,
     token?: string,
-	message?: string
+    message?: string
   ): Promise<any> {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
@@ -142,11 +142,11 @@ export class RocketChat {
         : tmpText;
 
     const fields = helper.baseFields;
-    
-	if (message) {
-		const messageFields = await helper.getMessageFeilds();
-		Array.prototype.push.apply(fields, messageFields);
-	}
+
+    if (message) {
+      const messageFields = await helper.getMessageFeilds();
+      Array.prototype.push.apply(fields, messageFields);
+    }
     // if (commitFlag && token) {
     // 	const commitFields = await helper.getCommitFields(token);
     // 	Array.prototype.push.apply(fields, commitFields);

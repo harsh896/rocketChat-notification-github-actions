@@ -9411,8 +9411,8 @@ class Helper {
             const fields = [
                 {
                     short: true,
-                    title: 'message',
-                    value: 'Hello'
+                    title: "message",
+                    value: onmessage
                 }
             ];
             return fields;
