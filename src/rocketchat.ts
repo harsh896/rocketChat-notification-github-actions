@@ -9,7 +9,9 @@ export interface IncomingWebhookDefaultArguments {
   icon_emoji: string;
 }
 const message: string = core.getInput("message");
-const userNameWhoTriggeredTheWorkflow: string = core.getInput("userNameWhoTriggeredTheWorkflow")
+const userNameWhoTriggeredTheWorkflow: string = core.getInput(
+  "userNameWhoTriggeredTheWorkflow"
+);
 interface Accessory {
   color: string;
   result: string;
@@ -18,7 +20,7 @@ interface Accessory {
 
 class Helper {
   readonly context: Context = github.context;
-  
+
   public get success(): Accessory {
     return {
       color: "#2cbe4e",

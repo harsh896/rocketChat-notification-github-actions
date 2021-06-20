@@ -37,7 +37,7 @@ inputs:
     description: enter custom message here
     required: false
   userNameWhoTriggeredTheWorkflow:
-    description: Define User name who ran the workfloe - ${{ github.actor }}
+    description: Define User name who ran the workflow
     required: true
 runs:
   using: 'node12'
