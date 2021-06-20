@@ -19,5 +19,13 @@ jobs:
 
     - name: my actions
       uses: ./
+      if: always()
       with:
-        host: harsh
+        type: ${{ job.status }}
+        job_name: '*${{ github.workflow }}* Github Action -> '
+        #icon_emoji: ${{ env.EMOJI }}
+        mention: 'all'
+        mention_if: 'failure'
+        channel: '#github-actions'
+        url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+        
