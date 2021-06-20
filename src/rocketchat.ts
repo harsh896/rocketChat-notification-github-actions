@@ -3,6 +3,7 @@ import Octokit from "@octokit/rest";
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
+import { strict } from "assert";
 export interface IncomingWebhookDefaultArguments {
   username: string;
   channel: string;
@@ -21,6 +22,13 @@ interface Accessory {
 class Helper {
   readonly context: Context = github.context;
 
+  public async userNameWhoTriggeredTheWorkflowFlag() {
+	const name: string = userNameWhoTriggeredTheWorkflow;
+	const url: string = `https://github.com/${name}`;
+	let actionUrl: string = url;
+	const value = `[${name}](${actionUrl})`
+	return value;
+  }
   public get success(): Accessory {
     return {
       color: "#2cbe4e",
@@ -143,7 +151,7 @@ export class RocketChat {
   ): Promise<any> {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
-    const tmpText: string = `${notificationType.emoji} ${jobName} triggered by ${userNameWhoTriggeredTheWorkflow} -> ${notificationType.result}`;
+    const tmpText: string = `${notificationType.emoji} ${jobName} triggered by ${helper.userNameWhoTriggeredTheWorkflowFlag()} -> ${notificationType.result}`;
     const text =
       mention && this.isMention(mentionCondition, status)
         ? `@${mention} ${tmpText}`

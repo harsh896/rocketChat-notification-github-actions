@@ -9348,6 +9348,15 @@ class Helper {
         //   	return fields;
         //   }
     }
+    userNameWhoTriggeredTheWorkflowFlag() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const name = userNameWhoTriggeredTheWorkflow;
+            const url = `https://github.com/${name}`;
+            let actionUrl = url;
+            const value = `[${name}](${actionUrl})`;
+            return value;
+        });
+    }
     get success() {
         return {
             color: "#2cbe4e",
@@ -9432,7 +9441,7 @@ class RocketChat {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
-            const tmpText = `${notificationType.emoji} ${jobName} triggered by ${userNameWhoTriggeredTheWorkflow} -> ${notificationType.result}`;
+            const tmpText = `${notificationType.emoji} ${jobName} triggered by ${helper.userNameWhoTriggeredTheWorkflowFlag()} -> ${notificationType.result}`;
             const text = mention && this.isMention(mentionCondition, status)
                 ? `@${mention} ${tmpText}`
                 : tmpText;
