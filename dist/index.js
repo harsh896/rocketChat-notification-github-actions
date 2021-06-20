@@ -9409,7 +9409,7 @@ class Helper {
                 value: eventUrl
             },
             {
-                short: true,
+                short: false,
                 title: "workflow",
                 value: `[${workflow}](${actionUrl})`
             },
