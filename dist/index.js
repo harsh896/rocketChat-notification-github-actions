@@ -9319,6 +9319,7 @@ const github = __importStar(__webpack_require__(469));
 const axios_1 = __importDefault(__webpack_require__(53));
 const core = __importStar(__webpack_require__(470));
 const message = core.getInput("message");
+const userNameWhoTriggeredTheWorkflow = core.getInput("userNameWhoTriggeredTheWorkflow");
 class Helper {
     constructor() {
         this.context = github.context;
@@ -9431,7 +9432,7 @@ class RocketChat {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
-            const tmpText = `${notificationType.emoji} ${jobName} ${notificationType.result}`;
+            const tmpText = `${notificationType.emoji} ${jobName} triggered by ${userNameWhoTriggeredTheWorkflow} -> ${notificationType.result}`;
             const text = mention && this.isMention(mentionCondition, status)
                 ? `@${mention} ${tmpText}`
                 : tmpText;

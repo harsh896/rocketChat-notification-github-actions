@@ -9,6 +9,7 @@ export interface IncomingWebhookDefaultArguments {
   icon_emoji: string;
 }
 const message: string = core.getInput("message");
+const userNameWhoTriggeredTheWorkflow: string = core.getInput("userNameWhoTriggeredTheWorkflow")
 interface Accessory {
   color: string;
   result: string;
@@ -17,7 +18,7 @@ interface Accessory {
 
 class Helper {
   readonly context: Context = github.context;
-
+  
   public get success(): Accessory {
     return {
       color: "#2cbe4e",
@@ -140,7 +141,7 @@ export class RocketChat {
   ): Promise<any> {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
-    const tmpText: string = `${notificationType.emoji} ${jobName} ${notificationType.result}`;
+    const tmpText: string = `${notificationType.emoji} ${jobName} triggered by ${userNameWhoTriggeredTheWorkflow} -> ${notificationType.result}`;
     const text =
       mention && this.isMention(mentionCondition, status)
         ? `@${mention} ${tmpText}`

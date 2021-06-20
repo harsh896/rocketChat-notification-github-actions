@@ -32,7 +32,8 @@ jobs:
       if: always()
       with:
         type: ${{ job.status }}
-        job_name: '*${{ github.workflow }}* Github Action -> '
+        job_name: '*${{ github.workflow }}* Github Action'
+        userNameWhoTriggeredTheWorkflow: "${{ github.actor }}"
         #icon_emoji: ${{ env.EMOJI }}
         mention: 'all'
         mention_if: 'failure'
@@ -41,3 +42,4 @@ jobs:
         #message: 'testing message field'  
         commit: 'true'
         token: ${{ secrets.GITHUB_TOKEN }}
+        
