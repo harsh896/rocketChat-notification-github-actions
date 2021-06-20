@@ -83,7 +83,7 @@ class Helper {
       {
         short: false,
         title: "message",
-        value: "hello pluto"
+        value: "HELLO"
       }
     ];
   }
