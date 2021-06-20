@@ -16,7 +16,7 @@ jobs:
     steps:
     - name: checkout
       uses: actions/checkout@v2
-      
+
     - name: ssh into server and running first-gitcexconfig ansible playbook
       uses: appleboy/ssh-action@master
       with:
@@ -28,7 +28,7 @@ jobs:
           ls 
 
     - name: my actions
-      uses: ./
+      uses: harsh896/rocketChat-notification-github-actions@master
       if: always()
       with:
         type: ${{ job.status }}
