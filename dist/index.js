@@ -2632,8 +2632,8 @@ function paginatePlugin(octokit) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.isValidCondition = exports.validateStatus = void 0;
-const jobStatuses = ['success', 'failure', 'cancelled'];
-const metionConditions = [...jobStatuses, 'always'];
+const jobStatuses = ["success", "failure", "cancelled"];
+const metionConditions = [...jobStatuses, "always"];
 function isValid(target, validList) {
     return validList.includes(target);
 }
@@ -2644,7 +2644,7 @@ function isValid(target, validList) {
  */
 function validateStatus(jobStatus) {
     if (!isValid(jobStatus, jobStatuses)) {
-        throw new Error('Invalid type parameter');
+        throw new Error("Invalid type parameter");
     }
     return jobStatus;
 }
@@ -5445,27 +5445,28 @@ const rocketchat_1 = __webpack_require__(537);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const status = utils_1.validateStatus(core.getInput('type', { required: true }).toLowerCase());
-            const jobName = core.getInput('job_name', { required: true });
-            const url = process.env.ROCKETCHAT_WEBHOOK || core.getInput('url');
-            let mention = core.getInput('mention');
-            let mentionCondition = core.getInput('mention_if').toLowerCase();
+            const status = utils_1.validateStatus(core.getInput("type", { required: true }).toLowerCase());
+            const jobName = core.getInput("job_name", { required: true });
+            const url = process.env.ROCKETCHAT_WEBHOOK || core.getInput("url");
+            let mention = core.getInput("mention");
+            let mentionCondition = core.getInput("mention_if").toLowerCase();
             const options = {
-                username: core.getInput('username'),
-                channel: core.getInput('channel'),
-                icon_emoji: core.getInput('icon_emoji')
+                username: core.getInput("username"),
+                channel: core.getInput("channel"),
+                icon_emoji: core.getInput("icon_emoji"),
+                message: core.getInput("message")
             };
-            const commitFlag = core.getInput('commit') === 'true';
-            const token = core.getInput('token');
+            const commitFlag = core.getInput("commit") === "true";
+            const token = core.getInput("token");
             if (mention && !utils_1.isValidCondition(mentionCondition)) {
-                mention = '';
-                mentionCondition = '';
+                mention = "";
+                mentionCondition = "";
                 console.warn(`
 				Ignore Rocket.Chat message metion:
 				mention_if: ${mentionCondition} is invalid
 			`);
             }
-            if (url === '') {
+            if (url === "") {
                 throw new Error(`
 				[Error] Missing Rocket.Chat Incoming Webhooks URL.
 				Please configure "ROCKETCHAT_WEBHOOK" as environment variable or
@@ -5475,7 +5476,7 @@ function run() {
             const rocketchat = new rocketchat_1.RocketChat();
             const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, token);
             yield rocketchat.notify(url, options, payload);
-            console.info('Sent message to Rocket.Chat');
+            console.info("Sent message to Rocket.Chat");
         }
         catch (err) {
             core.setFailed(err.message);
@@ -9346,25 +9347,25 @@ class Helper {
     }
     get success() {
         return {
-            color: '#2cbe4e',
-            result: 'Succeeded'
+            color: "#2cbe4e",
+            result: "Succeeded"
         };
     }
     get failure() {
         return {
-            color: '#cb2431',
-            result: 'Failed'
+            color: "#cb2431",
+            result: "Failed"
         };
     }
     get cancelled() {
         return {
-            color: '#ffc107',
-            result: 'Cancelled'
+            color: "#ffc107",
+            result: "Cancelled"
         };
     }
     get isPullRequest() {
         const { eventName } = this.context;
-        return eventName === 'pull_request';
+        return eventName === "pull_request";
     }
     get baseFields() {
         const { sha, eventName, workflow, ref } = this.context;
@@ -9373,6 +9374,7 @@ class Helper {
         const repoUrl = `https://github.com/${owner}/${repo}`;
         let actionUrl = repoUrl;
         let eventUrl = eventName;
+        //const message: string = message;
         if (this.isPullRequest) {
             eventUrl = `[${eventName}](${repoUrl}/pull/${number})`;
             actionUrl += `/pull/${number}/checks`;
@@ -9383,37 +9385,44 @@ class Helper {
         return [
             {
                 short: true,
-                title: 'ref',
+                title: "ref",
                 value: ref
             },
             {
                 short: true,
-                title: 'event name',
+                title: "event name",
                 value: eventUrl
             },
             {
                 short: true,
-                title: 'workflow',
+                title: "workflow",
                 value: `[${workflow}](${actionUrl})`
             },
             {
                 short: false,
-                title: 'repository',
+                title: "repository",
                 value: `[${owner}/${repo}](${repoUrl})`
+            },
+            {
+                short: false,
+                title: "message",
+                value: "hello"
             }
         ];
     }
 }
 class RocketChat {
     isMention(condition, status) {
-        return condition === 'always' || condition === status;
+        return condition === "always" || condition === status;
     }
     generatePayload(jobName, status, mention, mentionCondition, commitFlag, token) {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
             const tmpText = `${jobName} ${notificationType.result}`;
-            const text = mention && this.isMention(mentionCondition, status) ? `@${mention} ${tmpText}` : tmpText;
+            const text = mention && this.isMention(mentionCondition, status)
+                ? `@${mention} ${tmpText}`
+                : tmpText;
             const fields = helper.baseFields;
             // if (commitFlag && token) {
             // 	const commitFields = await helper.getCommitFields(token);

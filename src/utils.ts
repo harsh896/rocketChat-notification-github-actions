@@ -1,8 +1,8 @@
-const jobStatuses: string[] = ['success', 'failure', 'cancelled'];
-const metionConditions: string[] = [...jobStatuses, 'always'];
+const jobStatuses: string[] = ["success", "failure", "cancelled"];
+const metionConditions: string[] = [...jobStatuses, "always"];
 
 function isValid(target: string, validList: string[]): boolean {
-	return validList.includes(target);
+  return validList.includes(target);
 }
 
 /**
@@ -11,12 +11,12 @@ function isValid(target: string, validList: string[]): boolean {
  * @returns {string|Error}
  */
 export function validateStatus(jobStatus: string): string {
-	if (!isValid(jobStatus, jobStatuses)) {
-		throw new Error('Invalid type parameter');
-	}
-	return jobStatus;
+  if (!isValid(jobStatus, jobStatuses)) {
+    throw new Error("Invalid type parameter");
+  }
+  return jobStatus;
 }
 
 export function isValidCondition(condition: string): boolean {
-	return isValid(condition, metionConditions);
+  return isValid(condition, metionConditions);
 }

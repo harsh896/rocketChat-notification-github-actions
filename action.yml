@@ -33,6 +33,9 @@ inputs:
   token:
     description: 'need to get commit data'
     required: false
+  message:
+    description: enter custom message here
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
