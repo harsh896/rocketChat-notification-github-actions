@@ -1,14 +1,14 @@
 import * as github from "@actions/github";
-import Octokit from "@octokit/rest";
+const { Octokit } = require("@octokit/rest")
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
-
+import * as core from "@actions/core";
 export interface IncomingWebhookDefaultArguments {
   username: string;
   channel: string;
   icon_emoji: string;
 }
-
+const message: string = core.getInput("message");
 interface Accessory {
   color: string;
   result: string;
@@ -88,7 +88,7 @@ class Helper {
       {
         short: true,
         title: "message",
-        value: onmessage
+        value: message
       }
     ];
     return fields;
