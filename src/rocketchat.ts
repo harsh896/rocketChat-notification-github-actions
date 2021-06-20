@@ -22,12 +22,12 @@ interface Accessory {
 class Helper {
   readonly context: Context = github.context;
 
-  public async userNameWhoTriggeredTheWorkflowFlag() {
-	const name: string = userNameWhoTriggeredTheWorkflow;
-	const url: string = `https://github.com/${name}`;
-	let actionUrl: string = url;
-	const value = `[${name}](${actionUrl})`
-	return value;
+  public async userNameWhoTriggeredTheWorkflowFlag(): Promise<any> {
+    const name: string = userNameWhoTriggeredTheWorkflow;
+    const url: string = `https://github.com/${name}`;
+    let actionUrl: string = url;
+    const value = `[${name}](${actionUrl})`;
+    return value;
   }
   public get success(): Accessory {
     return {
@@ -151,7 +151,11 @@ export class RocketChat {
   ): Promise<any> {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
-    const tmpText: string = `${notificationType.emoji} ${jobName} triggered by ${helper.userNameWhoTriggeredTheWorkflowFlag()} -> ${notificationType.result}`;
+    const tmpText: string = `${
+      notificationType.emoji
+    } ${jobName} triggered by ${helper.userNameWhoTriggeredTheWorkflowFlag()} -> ${
+      notificationType.result
+    }`;
     const text =
       mention && this.isMention(mentionCondition, status)
         ? `@${mention} ${tmpText}`
