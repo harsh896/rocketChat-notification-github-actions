@@ -16,10 +16,10 @@ async function run() {
       username: core.getInput("username"),
       channel: core.getInput("channel"),
       icon_emoji: core.getInput("icon_emoji"),
-      message: core.getInput("message")
     };
     const commitFlag: boolean = core.getInput("commit") === "true";
     const token: string = core.getInput("token");
+    const message: string = core.getInput('message');
 
     if (mention && !isValidCondition(mentionCondition)) {
       mention = "";
@@ -50,6 +50,7 @@ async function run() {
 
     await rocketchat.notify(url, options, payload);
     console.info("Sent message to Rocket.Chat");
+    console.log(message);
   } catch (err) {
     core.setFailed(err.message);
   }

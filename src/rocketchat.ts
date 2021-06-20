@@ -7,7 +7,6 @@ export interface IncomingWebhookDefaultArguments {
   username: string;
   channel: string;
   icon_emoji: string;
-  message: string;
 }
 
 interface Accessory {
@@ -51,7 +50,7 @@ class Helper {
     const repoUrl: string = `https://github.com/${owner}/${repo}`;
     let actionUrl: string = repoUrl;
     let eventUrl: string = eventName;
-	//const message: string = message;
+    //const message: string = message;
 
     if (this.isPullRequest) {
       eventUrl = `[${eventName}](${repoUrl}/pull/${number})`;
@@ -81,11 +80,11 @@ class Helper {
         title: "repository",
         value: `[${owner}/${repo}](${repoUrl})`
       },
-	  {
-		short: false,
+      {
+        short: false,
         title: "message",
-        value: "hello"
-	  }
+        value: "hello pluto"
+      }
     ];
   }
 

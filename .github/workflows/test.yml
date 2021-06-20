@@ -28,4 +28,4 @@ jobs:
         mention_if: 'failure'
         channel: '#github-actions'
         url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
-        
+        message: 'testing message field'
