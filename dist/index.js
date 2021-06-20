@@ -5477,7 +5477,6 @@ function run() {
             const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, token, message);
             yield rocketchat.notify(url, options, payload);
             console.info("Sent message to Rocket.Chat");
-            console.log(message);
         }
         catch (err) {
             core.setFailed(err.message);
@@ -9317,54 +9316,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RocketChat = void 0;
 const github = __importStar(__webpack_require__(469));
-const { Octokit } = __webpack_require__(613);
 const axios_1 = __importDefault(__webpack_require__(53));
 const core = __importStar(__webpack_require__(470));
 const message = core.getInput("message");
 class Helper {
     constructor() {
         this.context = github.context;
-        // public async getCommitFields(token: string): Promise<any[]> {
-        // 	const {owner, repo} = this.context.repo;
-        // 	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
-        // 	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-        // 	const client: github.GitHub = new github.GitHub(token);
-        // 	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-        // 	const authorName: string = commit.author.login;
-        // 	const authorUrl: string = commit.author.html_url;
-        // 	const commitMsg: string = commit.commit.message;
-        // 	const commitUrl: string = commit.html_url;
-        // 	const fields = [
-        // 		{
-        // 			short: true,
-        // 			title: 'commit',
-        // 			value: `[${commitMsg}](${commitUrl})`
-        // 		},
-        // 		{
-        // 			short: true,
-        // 			title: 'author',
-        // 			value: `[${authorName}](${authorUrl})`
-        // 		}
-        // 	];
-        // 	return fields;
-        // }
+        //   public async getCommitFields(token: string): Promise<any[]> {
+        //   	const {owner, repo} = this.context.repo;
+        //   	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
+        //   	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
+        //   	const client: github.GitHub = new github.GitHub(token);
+        //   	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
+        //   	const authorName: string = commit.author.login;
+        //   	const authorUrl: string = commit.author.html_url;
+        //   	const commitMsg: string = commit.commit.message;
+        //   	const commitUrl: string = commit.html_url;
+        //   	const fields = [
+        //   		{
+        //   			short: true,
+        //   			title: 'commit',
+        //   			value: `[${commitMsg}](${commitUrl})`
+        //   		},
+        //   		{
+        //   			short: true,
+        //   			title: 'author',
+        //   			value: `[${authorName}](${authorUrl})`
+        //   		}
+        //   	];
+        //   	return fields;
+        //   }
     }
     get success() {
         return {
             color: "#2cbe4e",
-            result: "Succeeded"
+            result: "Succeeded",
+            emoji: ":heavy_check_mark:"
         };
     }
     get failure() {
         return {
             color: "#cb2431",
-            result: "Failed"
+            result: "Failed",
+            emoji: ":x:"
         };
     }
     get cancelled() {
         return {
             color: "#ffc107",
-            result: "Cancelled"
+            result: "Cancelled",
+            emoji: ":x:"
         };
     }
     get isPullRequest() {
@@ -9409,7 +9410,7 @@ class Helper {
             }
         ];
     }
-    getMessageFeilds() {
+    getMessageFeild() {
         return __awaiter(this, void 0, void 0, function* () {
             const fields = [
                 {
@@ -9430,14 +9431,14 @@ class RocketChat {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
-            const tmpText = `${jobName} ${notificationType.result}`;
+            const tmpText = `${notificationType.emoji} ${jobName} ${notificationType.result}`;
             const text = mention && this.isMention(mentionCondition, status)
                 ? `@${mention} ${tmpText}`
                 : tmpText;
             const fields = helper.baseFields;
             if (message) {
-                const messageFields = yield helper.getMessageFeilds();
-                Array.prototype.push.apply(fields, messageFields);
+                const messageField = yield helper.getMessageFeild();
+                Array.prototype.push.apply(fields, messageField);
             }
             // if (commitFlag && token) {
             // 	const commitFields = await helper.getCommitFields(token);

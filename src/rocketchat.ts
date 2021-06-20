@@ -1,5 +1,5 @@
 import * as github from "@actions/github";
-const { Octokit } = require("@octokit/rest");
+import Octokit from '@octokit/rest';
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
@@ -12,6 +12,7 @@ const message: string = core.getInput("message");
 interface Accessory {
   color: string;
   result: string;
+  emoji: string
 }
 
 class Helper {
@@ -20,21 +21,24 @@ class Helper {
   public get success(): Accessory {
     return {
       color: "#2cbe4e",
-      result: "Succeeded"
+      result: "Succeeded",
+	  emoji: ":heavy_check_mark:"
     };
   }
 
   public get failure(): Accessory {
     return {
       color: "#cb2431",
-      result: "Failed"
+      result: "Failed",
+	  emoji: ":x:"
     };
   }
 
   public get cancelled(): Accessory {
     return {
       color: "#ffc107",
-      result: "Cancelled"
+      result: "Cancelled",
+	  emoji: ":x:"
     };
   }
 
@@ -83,7 +87,7 @@ class Helper {
     ];
   }
 
-  public async getMessageFeilds(): Promise<any[]> {
+  public async getMessageFeild(): Promise<any[]> {
     const fields = [
       {
         short: true,
@@ -93,30 +97,31 @@ class Helper {
     ];
     return fields;
   }
-  // public async getCommitFields(token: string): Promise<any[]> {
-  // 	const {owner, repo} = this.context.repo;
-  // 	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
-  // 	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-  // 	const client: github.GitHub = new github.GitHub(token);
-  // 	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-  // 	const authorName: string = commit.author.login;
-  // 	const authorUrl: string = commit.author.html_url;
-  // 	const commitMsg: string = commit.commit.message;
-  // 	const commitUrl: string = commit.html_url;
-  // 	const fields = [
-  // 		{
-  // 			short: true,
-  // 			title: 'commit',
-  // 			value: `[${commitMsg}](${commitUrl})`
-  // 		},
-  // 		{
-  // 			short: true,
-  // 			title: 'author',
-  // 			value: `[${authorName}](${authorUrl})`
-  // 		}
-  // 	];
-  // 	return fields;
-  // }
+
+//   public async getCommitFields(token: string): Promise<any[]> {
+//   	const {owner, repo} = this.context.repo;
+//   	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
+//   	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
+//   	const client: github.GitHub = new github.GitHub(token);
+//   	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
+//   	const authorName: string = commit.author.login;
+//   	const authorUrl: string = commit.author.html_url;
+//   	const commitMsg: string = commit.commit.message;
+//   	const commitUrl: string = commit.html_url;
+//   	const fields = [
+//   		{
+//   			short: true,
+//   			title: 'commit',
+//   			value: `[${commitMsg}](${commitUrl})`
+//   		},
+//   		{
+//   			short: true,
+//   			title: 'author',
+//   			value: `[${authorName}](${authorUrl})`
+//   		}
+//   	];
+//   	return fields;
+//   }
 }
 
 export class RocketChat {
@@ -135,7 +140,7 @@ export class RocketChat {
   ): Promise<any> {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
-    const tmpText: string = `${jobName} ${notificationType.result}`;
+    const tmpText: string = `${notificationType.emoji} ${jobName} ${notificationType.result}`;
     const text =
       mention && this.isMention(mentionCondition, status)
         ? `@${mention} ${tmpText}`
@@ -144,8 +149,8 @@ export class RocketChat {
     const fields = helper.baseFields;
 
     if (message) {
-      const messageFields = await helper.getMessageFeilds();
-      Array.prototype.push.apply(fields, messageFields);
+      const messageField = await helper.getMessageFeild();
+      Array.prototype.push.apply(fields, messageField);
     }
     // if (commitFlag && token) {
     // 	const commitFields = await helper.getCommitFields(token);
