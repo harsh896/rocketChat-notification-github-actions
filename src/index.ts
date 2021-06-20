@@ -45,7 +45,8 @@ async function run() {
       mention,
       mentionCondition,
       commitFlag,
-      token
+      token,
+      message
     );
 
     await rocketchat.notify(url, options, payload);

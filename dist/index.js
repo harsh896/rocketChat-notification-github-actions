@@ -5474,7 +5474,7 @@ function run() {
 			`);
             }
             const rocketchat = new rocketchat_1.RocketChat();
-            const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, token);
+            const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, token, message);
             yield rocketchat.notify(url, options, payload);
             console.info("Sent message to Rocket.Chat");
             console.log(message);
@@ -9403,20 +9403,27 @@ class Helper {
                 short: false,
                 title: "repository",
                 value: `[${owner}/${repo}](${repoUrl})`
-            },
-            {
-                short: false,
-                title: "message",
-                value: "hello pluto"
             }
         ];
+    }
+    getMessageFeilds() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const fields = [
+                {
+                    short: true,
+                    title: 'message',
+                    value: 'Hello'
+                }
+            ];
+            return fields;
+        });
     }
 }
 class RocketChat {
     isMention(condition, status) {
         return condition === "always" || condition === status;
     }
-    generatePayload(jobName, status, mention, mentionCondition, commitFlag, token) {
+    generatePayload(jobName, status, mention, mentionCondition, commitFlag, token, message) {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
@@ -9425,6 +9432,10 @@ class RocketChat {
                 ? `@${mention} ${tmpText}`
                 : tmpText;
             const fields = helper.baseFields;
+            if (message) {
+                const messageFields = yield helper.getMessageFeilds();
+                Array.prototype.push.apply(fields, messageFields);
+            }
             // if (commitFlag && token) {
             // 	const commitFields = await helper.getCommitFields(token);
             // 	Array.prototype.push.apply(fields, commitFields);
