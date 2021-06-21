@@ -8,6 +8,7 @@ async function run() {
     const status: string = validateStatus(
       core.getInput("type", { required: true }).toLowerCase()
     );
+    const id: string = core.getInput("id");
     const jobName: string = core.getInput("job_name", { required: true });
     const url: string = process.env.ROCKETCHAT_WEBHOOK || core.getInput("url");
     let mention: string = core.getInput("mention");

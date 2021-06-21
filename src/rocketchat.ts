@@ -9,6 +9,7 @@ export interface IncomingWebhookDefaultArguments {
   channel: string;
   icon_emoji: string;
 }
+const id: string = core.getInput("id");
 const message: string = core.getInput("message");
 const userNameWhoTriggeredTheWorkflow: string = core.getInput(
   "userNameWhoTriggeredTheWorkflow"
@@ -155,7 +156,7 @@ export class RocketChat {
     const helper = new Helper();
     const notificationType: Accessory = helper[status];
     const userNameTriggered = await helper.userNameWhoTriggeredTheWorkflowFlag();
-    const tmpText: string = `${notificationType.emoji} ${jobName} triggered by ${userNameTriggered} -> ${notificationType.result}`;
+    const tmpText: string = `${notificationType.emoji} ${jobName} #${id} triggered by ${userNameTriggered} -> ${notificationType.result}`;
     const text =
       mention && this.isMention(mentionCondition, status)
         ? `@${mention} ${tmpText}`

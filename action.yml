@@ -39,6 +39,9 @@ inputs:
   userNameWhoTriggeredTheWorkflow:
     description: Define User name who ran the workflow
     required: true
+  id:
+    description: Define Id number of the particular pipeline
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

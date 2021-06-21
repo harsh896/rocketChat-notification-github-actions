@@ -5536,6 +5536,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const status = utils_1.validateStatus(core.getInput("type", { required: true }).toLowerCase());
+            const id = core.getInput("id");
             const jobName = core.getInput("job_name", { required: true });
             const url = process.env.ROCKETCHAT_WEBHOOK || core.getInput("url");
             let mention = core.getInput("mention");
@@ -9372,6 +9373,7 @@ exports.RocketChat = void 0;
 const github = __importStar(__webpack_require__(469));
 const axios_1 = __importDefault(__webpack_require__(53));
 const core = __importStar(__webpack_require__(470));
+const id = core.getInput("id");
 const message = core.getInput("message");
 const userNameWhoTriggeredTheWorkflow = core.getInput("userNameWhoTriggeredTheWorkflow");
 class Helper {
@@ -9496,7 +9498,7 @@ class RocketChat {
             const helper = new Helper();
             const notificationType = helper[status];
             const userNameTriggered = yield helper.userNameWhoTriggeredTheWorkflowFlag();
-            const tmpText = `${notificationType.emoji} ${jobName} triggered by ${userNameTriggered} -> ${notificationType.result}`;
+            const tmpText = `${notificationType.emoji} ${jobName} #${id} triggered by ${userNameTriggered} -> ${notificationType.result}`;
             const text = mention && this.isMention(mentionCondition, status)
                 ? `@${mention} ${tmpText}`
                 : tmpText;
