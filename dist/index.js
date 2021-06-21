@@ -9498,7 +9498,7 @@ class RocketChat {
             const helper = new Helper();
             const notificationType = helper[status];
             const userNameTriggered = yield helper.userNameWhoTriggeredTheWorkflowFlag();
-            const tmpText = `#${id} ${notificationType.emoji} ${jobName}  triggered by ${userNameTriggered} -> ${notificationType.result}`;
+            const tmpText = `${notificationType.emoji} #${id} ${jobName}  triggered by ${userNameTriggered} -> ${notificationType.result}`;
             const text = mention && this.isMention(mentionCondition, status)
                 ? `@${mention} ${tmpText}`
                 : tmpText;

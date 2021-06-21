@@ -17,29 +17,50 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: ssh into server and running first-gitcexconfig ansible playbook
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.STAGE_HOST }}
-        username: ${{ secrets.STAGE_USERNAME }}
-        key: ${{ secrets.STAGE_KEY }}
-        port: ${{ secrets.STAGE_PORT }}
-        script: |
-          ls 
+    - name: Shell Commands
+      run: |
+        echo ${{ github }}
+        echo ${{ github.action }}
+        echo ${{ github.action_path }}
+        echo ${{ github.actor }}
+        echo ${{ github.base_ref }}
+        echo ${{ github.event }}
+        echo ${{ github.event_name }}
+        echo ${{ github.head_ref }}
+        echo ${{ github.job }}
+        echo ${{ github.ref }}
+        echo ${{ github.repository }}
+        echo ${{ github.repository_owner }}
+        echo ${{ github.run_id }}
+        echo ${{ github.run_number }}
+        echo ${{ github.sha }}
+        echo ${{ github.token }}
+        echo ${{ github.workflow }}
+        echo ${{ github.workspace }}
 
-    - name: my actions
-      uses: harsh896/rocketChat-notification-github-actions@master
-      if: always()
-      with:
-        type: ${{ job.status }}
-        id: ${{ github.run_number }}
-        job_name: '*${{ github.workflow }}* Github Action'
-        userNameWhoTriggeredTheWorkflow: "${{ github.actor }}"
-        mention: 'all'
-        mention_if: 'failure'
-        channel: '#DevOps_Crew'
-        url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
-        message: Teting Message  
-        commit: 'true'
-        token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: ssh into server and running first-gitcexconfig ansible playbook
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.STAGE_HOST }}
+    #     username: ${{ secrets.STAGE_USERNAME }}
+    #     key: ${{ secrets.STAGE_KEY }}
+    #     port: ${{ secrets.STAGE_PORT }}
+    #     script: |
+    #       ls 
+
+    # - name: my actions
+    #   uses: harsh896/rocketChat-notification-github-actions@master
+    #   if: always()
+    #   with:
+    #     type: ${{ job.status }}
+    #     id: ${{ github.run_number }}
+    #     job_name: '*${{ github.workflow }}* Github Action'
+    #     userNameWhoTriggeredTheWorkflow: "${{ github.actor }}"
+    #     mention: 'all'
+    #     mention_if: 'failure'
+    #     channel: '#github-actions'
+    #     url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+    #     message: Teting Message  
+    #     commit: 'true'
+    #     token: ${{ secrets.GITHUB_TOKEN }}
         
