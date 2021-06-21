@@ -28,7 +28,7 @@ jobs:
     #       ls 
     - name: Shell command
       run: |
-        echo "${{ github.github.run_id }}"
+        echo "${{ github.run_id }}"
 
     # - name: my actions
     #   uses: harsh896/rocketChat-notification-github-actions@master
