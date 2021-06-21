@@ -6214,7 +6214,7 @@ class Helper {
             const client = github_1.getOctokit(token);
             const { data: commit } = yield client.repos.getCommit({ owner, repo, ref });
             const authorName = commit.author ? commit.author.login : null;
-            const authorUrl = `https://github.com/${authorName}`;
+            const authorUrl = commit.author ? commit.author.html_url : null;
             const commitMsg = commit.commit.message;
             const commitUrl = commit.html_url;
             const fields = [

@@ -128,7 +128,7 @@ class Helper {
     const client = getOctokit(token);
     const { data: commit } = await client.repos.getCommit({ owner, repo, ref });
     const authorName = commit.author ? commit.author.login : null;
-    const authorUrl: string = `https://github.com/${authorName}`;
+    const authorUrl = commit.author ? commit.author.html_url : null;
     const commitMsg: string = commit.commit.message;
     const commitUrl: string = commit.html_url;
     const fields = [
