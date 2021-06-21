@@ -127,8 +127,8 @@ class Helper {
       : this.context.sha;
     const client = getOctokit(token);
     const { data: commit } = await client.repos.getCommit({ owner, repo, ref });
-    // const authorName: string = commit.author.login;
-    // const authorUrl: string = commit.author.html_url;
+    const authorName = commit.author ? commit.author.login : null;
+    const authorUrl: string = `https://github.com/${authorName}`;
     const commitMsg: string = commit.commit.message;
     const commitUrl: string = commit.html_url;
     const fields = [
@@ -136,12 +136,12 @@ class Helper {
         short: true,
         title: "commit",
         value: `[${commitMsg}](${commitUrl})`
+      },
+      {
+        short: true,
+        title: "author",
+        value: `[${authorName}](${authorUrl})`
       }
-      // {
-      //   short: true,
-      //   title: "author",
-      //   value: `[${authorName}](${authorUrl})`
-      // }
     ];
     return fields;
   }

@@ -6196,7 +6196,7 @@ class Helper {
         return __awaiter(this, void 0, void 0, function* () {
             const fields = [
                 {
-                    short: true,
+                    short: false,
                     title: "message",
                     value: message
                 }
@@ -6213,8 +6213,8 @@ class Helper {
                 : this.context.sha;
             const client = github_1.getOctokit(token);
             const { data: commit } = yield client.repos.getCommit({ owner, repo, ref });
-            // const authorName: string = commit.author.login;
-            // const authorUrl: string = commit.author.html_url;
+            const authorName = commit.author ? commit.author.login : null;
+            const authorUrl = `https://github.com/${authorName}`;
             const commitMsg = commit.commit.message;
             const commitUrl = commit.html_url;
             const fields = [
@@ -6222,12 +6222,12 @@ class Helper {
                     short: true,
                     title: "commit",
                     value: `[${commitMsg}](${commitUrl})`
+                },
+                {
+                    short: true,
+                    title: "author",
+                    value: `[${authorName}](${authorUrl})`
                 }
-                // {
-                //   short: true,
-                //   title: "author",
-                //   value: `[${authorName}](${authorUrl})`
-                // }
             ];
             return fields;
         });
