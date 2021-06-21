@@ -126,6 +126,7 @@ class Helper {
       ? head_ref.replace(/refs\/heads\//, "")
       : this.context.sha;
     const client: github.GitHub = new github.GitHub(token);
+    const client1 = {data: client}; 
     // const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
     // const authorName: string = commit.author.login;
     // const authorUrl: string = commit.author.html_url;
@@ -135,7 +136,7 @@ class Helper {
       {
         short: true,
         title: "commit",
-        value: `[${head_ref}] ${owner} ${repo} ${ref} ${client}`
+        value: `[${head_ref}] ${owner} ${repo} ${ref} ${client1}`
       }
       // {
       //   short: true,
