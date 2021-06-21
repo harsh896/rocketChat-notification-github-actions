@@ -17,16 +17,20 @@ jobs:
     - name: checkout
       uses: actions/checkout@v2
 
-    - name: ssh into server and running first-gitcexconfig ansible playbook
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.STAGE_HOST }}
-        username: ${{ secrets.STAGE_USERNAME }}
-        key: ${{ secrets.STAGE_KEY }}
-        port: ${{ secrets.STAGE_PORT }}
-        script: |
-          ls 
-
+    # - name: ssh into server and running first-gitcexconfig ansible playbook
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.STAGE_HOST }}
+    #     username: ${{ secrets.STAGE_USERNAME }}
+    #     key: ${{ secrets.STAGE_KEY }}
+    #     port: ${{ secrets.STAGE_PORT }}
+    #     script: |
+    #       ls 
+    - name: Shell command
+      run: |
+        echo "${{ github.job }}"
+        echo "${{ job.container }}"
+        
     - name: my actions
       uses: harsh896/rocketChat-notification-github-actions@master
       if: always()

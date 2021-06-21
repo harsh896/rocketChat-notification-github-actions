@@ -23,12 +23,16 @@ class Helper {
   readonly context: Context = github.context;
 
   public async userNameWhoTriggeredTheWorkflowFlag(): Promise<any> {
+
     const name: string = userNameWhoTriggeredTheWorkflow;
     const url: string = `https://github.com/${name}`;
     let actionUrl: string = url;
+
     const value = `[${name}](${actionUrl})`;
+
     return value;
   }
+
   public get success(): Accessory {
     return {
       color: "#2cbe4e",
@@ -164,10 +168,10 @@ export class RocketChat {
       const messageField = await helper.getMessageFeild();
       Array.prototype.push.apply(fields, messageField);
     }
-    // if (commitFlag && token) {
-    // 	const commitFields = await helper.getCommitFields(token);
-    // 	Array.prototype.push.apply(fields, commitFields);
-    // }
+    if (commitFlag && token) {
+    	//const commitFields = await helper.getCommitFields(token);
+    	//Array.prototype.push.apply(fields, commitFields);
+    }
 
     const attachments = {
       color: notificationType.color,
