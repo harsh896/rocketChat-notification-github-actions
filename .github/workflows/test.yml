@@ -37,6 +37,14 @@ jobs:
         echo ${{ github.token }}
         echo ${{ github.workflow }}
         echo ${{ github.workspace }}
+        
+
+        echo ${{ job }}
+        echo ${{ job.container }}
+        echo ${{ job.container.id }}
+        echo ${{ job.container.network }}
+        echo ${{ job.services }}
+        echo ${{ job.status }}
 
     # - name: ssh into server and running first-gitcexconfig ansible playbook
     #   uses: appleboy/ssh-action@master

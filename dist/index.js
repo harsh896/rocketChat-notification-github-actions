@@ -9379,30 +9379,30 @@ const userNameWhoTriggeredTheWorkflow = core.getInput("userNameWhoTriggeredTheWo
 class Helper {
     constructor() {
         this.context = github.context;
-        //   public async getCommitFields(token: string): Promise<any[]> {
-        //   	const {owner, repo} = this.context.repo;
-        //   	const head_ref: string = process.env.GITHUB_HEAD_REF as string;
-        //   	const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-        //   	const client: github.GitHub = new github.GitHub(token);
-        //   	const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-        //   	const authorName: string = commit.author.login;
-        //   	const authorUrl: string = commit.author.html_url;
-        //   	const commitMsg: string = commit.commit.message;
-        //   	const commitUrl: string = commit.html_url;
-        //   	const fields = [
-        //   		{
-        //   			short: true,
-        //   			title: 'commit',
-        //   			value: `[${commitMsg}](${commitUrl})`
-        //   		},
-        //   		{
-        //   			short: true,
-        //   			title: 'author',
-        //   			value: `[${authorName}](${authorUrl})`
-        //   		}
-        //   	];
-        //   	return fields;
-        //   }
+        // public async getCommitFields(token: string): Promise<any[]> {
+        //   const {owner, repo} = this.context.repo;
+        //   const head_ref: string = process.env.GITHUB_HEAD_REF as string;
+        //   const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
+        //   const client: github.GitHub = new github.GitHub(token);
+        //   const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
+        //   const authorName: string = commit.author.login;
+        //   const authorUrl: string = commit.author.html_url;
+        //   const commitMsg: string = commit.commit.message;
+        //   const commitUrl: string = commit.html_url;
+        //   const fields = [
+        //     {
+        //       short: true,
+        //       title: 'commit',
+        //       value: `[${commitMsg}](${commitUrl})`
+        //     },
+        //     {
+        //       short: true,
+        //       title: 'author',
+        //       value: `[${authorName}](${authorUrl})`
+        //     }
+        //   ];
+        //   return fields;
+        // }
     }
     userNameWhoTriggeredTheWorkflowFlag() {
         return __awaiter(this, void 0, void 0, function* () {
