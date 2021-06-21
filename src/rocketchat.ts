@@ -23,7 +23,6 @@ class Helper {
   readonly context: Context = github.context;
 
   public async userNameWhoTriggeredTheWorkflowFlag(): Promise<any> {
-
     const name: string = userNameWhoTriggeredTheWorkflow;
     const url: string = `https://github.com/${name}`;
     let actionUrl: string = url;
@@ -169,8 +168,8 @@ export class RocketChat {
       Array.prototype.push.apply(fields, messageField);
     }
     if (commitFlag && token) {
-    	//const commitFields = await helper.getCommitFields(token);
-    	//Array.prototype.push.apply(fields, commitFields);
+      //const commitFields = await helper.getCommitFields(token);
+      //Array.prototype.push.apply(fields, commitFields);
     }
 
     const attachments = {
