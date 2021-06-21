@@ -9379,30 +9379,6 @@ const userNameWhoTriggeredTheWorkflow = core.getInput("userNameWhoTriggeredTheWo
 class Helper {
     constructor() {
         this.context = github.context;
-        // public async getCommitFields(token: string): Promise<any[]> {
-        //   const {owner, repo} = this.context.repo;
-        //   const head_ref: string = process.env.GITHUB_HEAD_REF as string;
-        //   const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-        //   const client: github.GitHub = new github.GitHub(token);
-        //   const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-        //   const authorName: string = commit.author.login;
-        //   const authorUrl: string = commit.author.html_url;
-        //   const commitMsg: string = commit.commit.message;
-        //   const commitUrl: string = commit.html_url;
-        //   const fields = [
-        //     {
-        //       short: true,
-        //       title: 'commit',
-        //       value: `[${commitMsg}](${commitUrl})`
-        //     },
-        //     {
-        //       short: true,
-        //       title: 'author',
-        //       value: `[${authorName}](${authorUrl})`
-        //     }
-        //   ];
-        //   return fields;
-        // }
     }
     userNameWhoTriggeredTheWorkflowFlag() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -9488,6 +9464,32 @@ class Helper {
             return fields;
         });
     }
+    getCommitFields(token) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { owner, repo } = this.context.repo;
+            const head_ref = process.env.GITHUB_HEAD_REF;
+            const ref = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
+            const client = new github.GitHub(token);
+            // const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
+            // const authorName: string = commit.author.login;
+            // const authorUrl: string = commit.author.html_url;
+            // const commitMsg: string = commit.commit.message;
+            // const commitUrl: string = commit.html_url;
+            const fields = [
+            // {
+            //   short: true,
+            //   title: 'commit',
+            //   value: `[${commitMsg}](${commitUrl})`
+            // },
+            // {
+            //   short: true,
+            //   title: 'author',
+            //   value: `[${authorName}](${authorUrl})`
+            // }
+            ];
+            return fields;
+        });
+    }
 }
 class RocketChat {
     isMention(condition, status) {
@@ -9508,8 +9510,8 @@ class RocketChat {
                 Array.prototype.push.apply(fields, messageField);
             }
             if (commitFlag && token) {
-                //const commitFields = await helper.getCommitFields(token);
-                //Array.prototype.push.apply(fields, commitFields);
+                const commitFields = yield helper.getCommitFields(token);
+                Array.prototype.push.apply(fields, commitFields);
             }
             const attachments = {
                 color: notificationType.color,
