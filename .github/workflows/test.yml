@@ -19,7 +19,7 @@ jobs:
     
     - name: shell
       run: |
-        echo "${{toJSON(github.event)}}"
+        echo "${{toJSON(github.job)}}"
 
     # - name: ssh into server and running first-gitcexconfig ansible playbook
     #   uses: appleboy/ssh-action@master
@@ -31,22 +31,22 @@ jobs:
     #     script: |
     #       ls 
 
-    - name: my actions
-      uses: harsh896/rocketChat-notification-github-actions@master
-      if: always()
-      with:
-        type: ${{ job.status }}
-        id: ${{ github.run_number }}
-        job_name: '*${{ github.workflow }}* Github Action'
-        userNameWhoTriggeredTheWorkflow: "${{ github.actor }}"
-        mention: 'here'
-        mention_if: 'failure'
-        channel: '#github-actions'
-        url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
-        message: Teting Message  
-        commit: 'false'
-        commitMessage: ${{ github.event.head_commit.message }}
-        commitUrl: ${{ github.event.head_commit.url }}
-        commitAuthor: ${{ github.event.head_commit.committer.name }}
-        #token: ${{ secrets.GITHUB_TOKEN }}
+    # - name: my actions
+    #   uses: harsh896/rocketChat-notification-github-actions@master
+    #   if: always()
+    #   with:
+    #     type: ${{ job.status }}
+    #     id: ${{ github.run_number }}
+    #     job_name: '*${{ github.workflow }}* Github Action'
+    #     userNameWhoTriggeredTheWorkflow: "${{ github.actor }}"
+    #     mention: 'here'
+    #     mention_if: 'failure'
+    #     channel: '#github-actions'
+    #     url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+    #     message: Teting Message  
+    #     commit: 'false'
+    #     commitMessage: ${{ github.event.head_commit.message }}
+    #     commitUrl: ${{ github.event.head_commit.url }}
+    #     commitAuthor: ${{ github.event.head_commit.committer.name }}
+    #     #token: ${{ secrets.GITHUB_TOKEN }}
         
