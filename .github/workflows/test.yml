@@ -19,19 +19,17 @@ jobs:
     
     - name: shell
       run: |
-        echo "${{toJSON(steps)}}"
+        echo "${{toJSON(github.event)}}"
 
-    - name: ssh into server and running first-gitcexconfig ansible playbook
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.STAGE_HOST }}
-        username: ${{ secrets.STAGE_USERNAME }}
-        key: ${{ secrets.STAGE_KEY }}
-        port: ${{ secrets.STAGE_PORT }}
-        script: |
-          ls 
-      run: |
-        echo "${{toJSON(steps)}}"
+    # - name: ssh into server and running first-gitcexconfig ansible playbook
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.STAGE_HOST }}
+    #     username: ${{ secrets.STAGE_USERNAME }}
+    #     key: ${{ secrets.STAGE_KEY }}
+    #     port: ${{ secrets.STAGE_PORT }}
+    #     script: |
+    #       ls 
 
     # - name: my actions
     #   uses: harsh896/rocketChat-notification-github-actions@master
@@ -50,5 +48,4 @@ jobs:
     #     commitMessage: ${{ github.event.head_commit.message }}
     #     commitUrl: ${{ github.event.head_commit.url }}
     #     commitAuthor: ${{ github.event.head_commit.committer.name }}
-    #     #token: ${{ secrets.GITHUB_TOKEN }}
         

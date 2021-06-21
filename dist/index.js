@@ -5536,7 +5536,6 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const status = utils_1.validateStatus(core.getInput("type", { required: true }).toLowerCase());
-            const id = core.getInput("id");
             const jobName = core.getInput("job_name", { required: true });
             const url = process.env.ROCKETCHAT_WEBHOOK || core.getInput("url");
             let mention = core.getInput("mention");
@@ -5547,7 +5546,6 @@ function run() {
                 icon_emoji: core.getInput("icon_emoji")
             };
             const commitFlag = core.getInput("commit") === "true";
-            const token = core.getInput("token");
             const message = core.getInput("message");
             if (mention && !utils_1.isValidCondition(mentionCondition)) {
                 mention = "";
@@ -5565,9 +5563,7 @@ function run() {
 			`);
             }
             const rocketchat = new rocketchat_1.RocketChat();
-            const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, 
-            //token,
-            message);
+            const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, message);
             yield rocketchat.notify(url, options, payload);
             console.info("Sent message to Rocket.Chat");
         }

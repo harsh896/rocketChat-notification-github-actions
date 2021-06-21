@@ -8,7 +8,6 @@ async function run() {
     const status: string = validateStatus(
       core.getInput("type", { required: true }).toLowerCase()
     );
-    const id: string = core.getInput("id");
     const jobName: string = core.getInput("job_name", { required: true });
     const url: string = process.env.ROCKETCHAT_WEBHOOK || core.getInput("url");
     let mention: string = core.getInput("mention");
@@ -19,7 +18,6 @@ async function run() {
       icon_emoji: core.getInput("icon_emoji")
     };
     const commitFlag: boolean = core.getInput("commit") === "true";
-    const token: string = core.getInput("token");
     const message: string = core.getInput("message");
 
     if (mention && !isValidCondition(mentionCondition)) {
@@ -46,7 +44,6 @@ async function run() {
       mention,
       mentionCondition,
       commitFlag,
-      //token,
       message
     );
 
