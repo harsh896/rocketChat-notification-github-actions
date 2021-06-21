@@ -9485,12 +9485,12 @@ class Helper {
             const fields = [
                 {
                     short: true,
-                    title: 'commit',
+                    title: "commit",
                     value: `[${commitMsg}](${commitUrlField})`
                 },
                 {
                     short: true,
-                    title: 'author',
+                    title: "author",
                     value: `[${authorName}](${authorUrl})`
                 }
             ];
@@ -9514,13 +9514,13 @@ class RocketChat {
                 ? `@${mention} ${tmpText}`
                 : tmpText;
             const fields = helper.baseFields;
-            if (message) {
-                const messageField = yield helper.getMessageFeild();
-                Array.prototype.push.apply(fields, messageField);
-            }
             if (commitFlag) {
                 const commitFields = yield helper.getCommitFields();
                 Array.prototype.push.apply(fields, commitFields);
+            }
+            if (message) {
+                const messageField = yield helper.getMessageFeild();
+                Array.prototype.push.apply(fields, messageField);
             }
             const attachments = {
                 color: notificationType.color,
