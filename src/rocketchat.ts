@@ -1,20 +1,20 @@
 import * as github from "@actions/github";
-import Octokit from "@octokit/rest";
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
-import { strict } from "assert";
+
 export interface IncomingWebhookDefaultArguments {
   username: string;
   channel: string;
   icon_emoji: string;
 }
+
+// Define Variables
 const id: string = core.getInput("id");
 const message: string = core.getInput("message");
 const userNameWhoTriggeredTheWorkflow: string = core.getInput(
   "userNameWhoTriggeredTheWorkflow"
 );
-
 const commitMessage: string = core.getInput("commitMessage");
 const commitAuthor: string = core.getInput("commitAuthor");
 const commitUrl: string = core.getInput("commitUrl");
@@ -95,12 +95,12 @@ class Helper {
         value: eventUrl
       },
       {
-        short: false,
+        short: true,
         title: "workflow",
         value: `[${workflow}](${actionUrl})`
       },
       {
-        short: false,
+        short: true,
         title: "repository",
         value: `[${owner}/${repo}](${repoUrl})`
       }

@@ -44,7 +44,7 @@ jobs:
         channel: '#github-actions'
         url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
         message: Teting Message  
-        commit: 'true'
+        commit: 'false'
         commitMessage: ${{ github.event.head_commit.message }}
         commitUrl: ${{ github.event.head_commit.url }}
         commitAuthor: ${{ github.event.head_commit.committer.name }}

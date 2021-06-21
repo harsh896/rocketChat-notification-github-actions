@@ -9375,6 +9375,7 @@ exports.RocketChat = void 0;
 const github = __importStar(__webpack_require__(469));
 const axios_1 = __importDefault(__webpack_require__(53));
 const core = __importStar(__webpack_require__(470));
+// Define Variables
 const id = core.getInput("id");
 const message = core.getInput("message");
 const userNameWhoTriggeredTheWorkflow = core.getInput("userNameWhoTriggeredTheWorkflow");
@@ -9446,12 +9447,12 @@ class Helper {
                 value: eventUrl
             },
             {
-                short: false,
+                short: true,
                 title: "workflow",
                 value: `[${workflow}](${actionUrl})`
             },
             {
-                short: false,
+                short: true,
                 title: "repository",
                 value: `[${owner}/${repo}](${repoUrl})`
             }
