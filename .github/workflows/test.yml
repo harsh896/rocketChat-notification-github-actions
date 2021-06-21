@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - feature*
 
 # Jobs
 jobs:
@@ -45,7 +46,5 @@ jobs:
         url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
         message: Teting Message  
         commit: 'true'
-        commitMessage: ${{ github.event.head_commit.message }}
-        commitUrl: ${{ github.event.head_commit.url }}
-        commitAuthor: ${{ github.event.head_commit.committer.name }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         
