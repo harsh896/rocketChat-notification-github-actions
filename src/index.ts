@@ -46,7 +46,7 @@ async function run() {
       mention,
       mentionCondition,
       commitFlag,
-      token,
+      //token,
       message
     );
 

@@ -5565,7 +5565,9 @@ function run() {
 			`);
             }
             const rocketchat = new rocketchat_1.RocketChat();
-            const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, token, message);
+            const payload = yield rocketchat.generatePayload(jobName, status, mention, mentionCondition, commitFlag, 
+            //token,
+            message);
             yield rocketchat.notify(url, options, payload);
             console.info("Sent message to Rocket.Chat");
         }
@@ -9376,6 +9378,9 @@ const core = __importStar(__webpack_require__(470));
 const id = core.getInput("id");
 const message = core.getInput("message");
 const userNameWhoTriggeredTheWorkflow = core.getInput("userNameWhoTriggeredTheWorkflow");
+const commitMessage = core.getInput("commitMessage");
+const commitAuthor = core.getInput("commitAuthor");
+const commitUrl = core.getInput("commitUrl");
 class Helper {
     constructor() {
         this.context = github.context;
@@ -9464,28 +9469,30 @@ class Helper {
             return fields;
         });
     }
-    getCommitFields(token) {
+    getCommitFields() {
         return __awaiter(this, void 0, void 0, function* () {
             const { owner, repo } = this.context.repo;
             const head_ref = process.env.GITHUB_HEAD_REF;
-            const ref = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-            const client = new github.GitHub(token);
-            // const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-            // const authorName: string = commit.author.login;
-            // const authorUrl: string = commit.author.html_url;
-            // const commitMsg: string = commit.commit.message;
-            // const commitUrl: string = commit.html_url;
+            const ref = this.isPullRequest
+                ? head_ref.replace(/refs\/heads\//, "")
+                : this.context.sha;
+            //const client: github.GitHub = new github.GitHub(token);
+            //const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
+            const authorName = commitAuthor;
+            const authorUrl = `https://github.com/${commitAuthor}`;
+            const commitMsg = commitMessage;
+            const commitUrlField = commitUrl;
             const fields = [
-            // {
-            //   short: true,
-            //   title: 'commit',
-            //   value: `[${commitMsg}](${commitUrl})`
-            // },
-            // {
-            //   short: true,
-            //   title: 'author',
-            //   value: `[${authorName}](${authorUrl})`
-            // }
+                {
+                    short: true,
+                    title: 'commit',
+                    value: `[${commitMsg}](${commitUrlField})`
+                },
+                {
+                    short: true,
+                    title: 'author',
+                    value: `[${authorName}](${authorUrl})`
+                }
             ];
             return fields;
         });
@@ -9495,7 +9502,9 @@ class RocketChat {
     isMention(condition, status) {
         return condition === "always" || condition === status;
     }
-    generatePayload(jobName, status, mention, mentionCondition, commitFlag, token, message) {
+    generatePayload(jobName, status, mention, mentionCondition, commitFlag, 
+    //token?: string,
+    message) {
         return __awaiter(this, void 0, void 0, function* () {
             const helper = new Helper();
             const notificationType = helper[status];
@@ -9509,8 +9518,8 @@ class RocketChat {
                 const messageField = yield helper.getMessageFeild();
                 Array.prototype.push.apply(fields, messageField);
             }
-            if (commitFlag && token) {
-                const commitFields = yield helper.getCommitFields(token);
+            if (commitFlag) {
+                const commitFields = yield helper.getCommitFields();
                 Array.prototype.push.apply(fields, commitFields);
             }
             const attachments = {
