@@ -5546,7 +5546,7 @@ function run() {
                 icon_emoji: core.getInput("icon_emoji")
             };
             const commitFlag = core.getInput("commit") === "true";
-            const token = core.getInput('token');
+            const token = core.getInput("token");
             const message = core.getInput("message");
             if (mention && !utils_1.isValidCondition(mentionCondition)) {
                 mention = "";

@@ -1,5 +1,5 @@
 import * as github from "@actions/github";
-import Octokit from '@octokit/rest';
+import Octokit from "@octokit/rest";
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
