@@ -1,5 +1,5 @@
 import * as github from "@actions/github";
-import { getOctokit } from '@actions/github';
+import { getOctokit } from "@actions/github";
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
@@ -111,7 +111,7 @@ class Helper {
   public async getMessageFeild(): Promise<any[]> {
     const fields = [
       {
-        short: true,
+        short: false,
         title: "message",
         value: message
       }
@@ -126,11 +126,11 @@ class Helper {
       ? head_ref.replace(/refs\/heads\//, "")
       : this.context.sha;
     const client = getOctokit(token);
-    const {data: commit} = await client.repos.getCommit({owner, repo, ref});
+    const { data: commit } = await client.repos.getCommit({ owner, repo, ref });
     // const authorName: string = commit.author.login;
-		// const authorUrl: string = commit.author.html_url;
-		const commitMsg: string = commit.commit.message;
-		const commitUrl: string = commit.html_url;
+    // const authorUrl: string = commit.author.html_url;
+    const commitMsg: string = commit.commit.message;
+    const commitUrl: string = commit.html_url;
     const fields = [
       {
         short: true,
