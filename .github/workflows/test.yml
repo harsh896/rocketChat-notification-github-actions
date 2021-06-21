@@ -19,7 +19,7 @@ jobs:
 
     - name: Shell Commands
       run: |
-        echo ${{ github }}
+        echo ${{ github.event.comment }}
         echo ${{ github.action }}
         echo ${{ github.action_path }}
         echo ${{ github.actor }}
