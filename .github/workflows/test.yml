@@ -19,7 +19,7 @@ jobs:
     
     - name: shell
       run: |
-        echo "${{toJSON(github.job)}}"
+        echo "${{toJSON(job)}}"
 
     # - name: ssh into server and running first-gitcexconfig ansible playbook
     #   uses: appleboy/ssh-action@master
