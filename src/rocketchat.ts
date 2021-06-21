@@ -1,4 +1,5 @@
 import * as github from "@actions/github";
+import { getOctokit } from "@actions/github";
 import { Context } from "@actions/github/lib/context";
 import axios from "axios";
 import * as core from "@actions/core";
@@ -110,7 +111,7 @@ class Helper {
   public async getMessageFeild(): Promise<any[]> {
     const fields = [
       {
-        short: true,
+        short: false,
         title: "message",
         value: message
       }
@@ -118,23 +119,23 @@ class Helper {
     return fields;
   }
 
-  public async getCommitFields(): Promise<any[]> {
+  public async getCommitFields(token: string): Promise<any[]> {
     const { owner, repo } = this.context.repo;
     const head_ref: string = process.env.GITHUB_HEAD_REF as string;
     const ref: string = this.isPullRequest
       ? head_ref.replace(/refs\/heads\//, "")
       : this.context.sha;
-    //const client: github.GitHub = new github.GitHub(token);
-    //const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-    const authorName: string = commitAuthor;
-    const authorUrl: string = `https://github.com/${commitAuthor}`;
-    const commitMsg: string = commitMessage;
-    const commitUrlField: string = commitUrl;
+    const client = getOctokit(token);
+    const { data: commit } = await client.repos.getCommit({ owner, repo, ref });
+    const authorName = commit.author ? commit.author.login : null;
+    const authorUrl = commit.author ? commit.author.html_url : null;
+    const commitMsg: string = commit.commit.message;
+    const commitUrl: string = commit.html_url;
     const fields = [
       {
         short: true,
         title: "commit",
-        value: `[${commitMsg}](${commitUrlField})`
+        value: `[${commitMsg}](${commitUrl})`
       },
       {
         short: true,
@@ -157,7 +158,7 @@ export class RocketChat {
     mention: string,
     mentionCondition: string,
     commitFlag: boolean,
-    //token?: string,
+    token?: string,
     message?: string
   ): Promise<any> {
     const helper = new Helper();
@@ -171,8 +172,8 @@ export class RocketChat {
 
     const fields = helper.baseFields;
 
-    if (commitFlag) {
-      const commitFields = await helper.getCommitFields();
+    if (commitFlag && token) {
+      const commitFields = await helper.getCommitFields(token);
       Array.prototype.push.apply(fields, commitFields);
     }
 

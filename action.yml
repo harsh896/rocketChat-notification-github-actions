@@ -30,6 +30,9 @@ inputs:
     description: 'whether include commit data or not (true or false)'
     required: false
     default: 'false'
+  token:
+    description: 'need to get commit data'
+    required: false
   message:
     description: enter custom message here
     required: false
@@ -39,15 +42,6 @@ inputs:
   id:
     description: Define Id number of the particular pipeline
     required: true
-  commitUrl:
-    description: Define this input if commit input value is true
-    required: false
-  commitMessage:
-    description: Define this input if commit input value is true
-    required: false
-  commitAuthor:
-    description: Define this input if commit input value is true
-    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'
