@@ -18,7 +18,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: my actions
-      uses: harsh896/rocketChat-notification-github-actions@master
+      uses: harsh896/rocketChat-notification-github-actions@v1.0
       if: always()
       with:
         type: ${{ job.status }}
@@ -28,8 +28,7 @@ jobs:
         mention: 'here'
         mention_if: 'failure'
         channel: '#github-actions'
-        url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
-        message: Teting Message  
+        url: ${{ secrets.ROCKETCHAT_WEBHOOK }}  
         commit: 'true'
         token: ${{ secrets.GITHUB_TOKEN }}
         
